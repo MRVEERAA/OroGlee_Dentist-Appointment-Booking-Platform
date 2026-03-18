@@ -3,7 +3,6 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { User, MapPin, Building2, Briefcase, Award, Image } from "lucide-react";
 
-// ✅ Toast Component
 function Confirmation({ message }) {
   return (
     <div className="fixed top-6 right-6 bg-green-500 text-white px-6 py-3 rounded-xl shadow-lg animate-slideIn">
@@ -37,7 +36,6 @@ export default function AddDentist() {
     try {
       await axios.post("http://localhost:5000/api/dentists", form);
 
-      // ✅ Show toast instead of alert
       setShowMsg(true);
 
       // Auto hide + redirect
@@ -52,7 +50,6 @@ export default function AddDentist() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 via-white to-indigo-100 px-4">
-      {/* ✅ TOAST */}
       {showMsg && <Confirmation message="Dentist Created Successfully ✅" />}
 
       <form

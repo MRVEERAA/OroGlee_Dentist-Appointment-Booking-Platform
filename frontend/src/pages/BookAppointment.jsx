@@ -21,7 +21,6 @@ export default function BookAppointment() {
   const [booking, setBooking] = useState(false);
   const [confirmation, setConfirmation] = useState(false);
 
-  // ✅ FETCH DENTIST
   useEffect(() => {
     const fetchDentist = async () => {
       try {
@@ -38,7 +37,6 @@ export default function BookAppointment() {
     fetchDentist();
   }, [id]);
 
-  // ✅ BOOK APPOINTMENT
   const handleSubmit = async (e) => {
     e.preventDefault();
     setBooking(true);
@@ -64,7 +62,6 @@ export default function BookAppointment() {
 
   return (
     <div className="container mx-auto p-6 min-h-screen bg-gray-50">
-      {/* ✅ CONFIRMATION UI */}
       {confirmation ? (
         <div className="flex justify-center items-center min-h-[70vh]">
           <div className="bg-white shadow-2xl rounded-2xl p-8 max-w-md text-center">
@@ -96,7 +93,6 @@ export default function BookAppointment() {
         </div>
       ) : (
         <div className="flex flex-col md:flex-row gap-8">
-          {/* ✅ DENTIST CARD */}
           <div className="md:w-1/2 bg-white rounded-2xl shadow-lg overflow-hidden">
             <div className="bg-gradient-to-r from-blue-500 to-indigo-600 h-28"></div>
 
@@ -147,7 +143,7 @@ export default function BookAppointment() {
             </div>
           </div>
 
-          {/* ✅ BOOKING FORM */}
+          {/*  BOOKING FORM */}
           <form
             className="md:w-1/2 bg-white p-6 rounded-xl shadow-lg flex flex-col gap-4"
             onSubmit={handleSubmit}

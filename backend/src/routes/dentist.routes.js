@@ -15,7 +15,7 @@ router.get("/", getDentists);
 router.get("/:id", getDentistById);
 
 // Admin-only routes
-router.post("/", protect, admin, createDentist);
+router.post("/", createDentist);
 router.put("/:id", protect, admin, updateDentist);
 router.delete("/:id", protect, admin, deleteDentist);
 

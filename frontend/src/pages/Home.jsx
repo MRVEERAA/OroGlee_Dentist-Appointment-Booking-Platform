@@ -38,7 +38,7 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="max-w-6xl mx-auto px-6 py-10">
-        {/* 🔥 HEADER / INTRO */}
+        {/*  HEADER / INTRO */}
         <div className="mb-10 text-center">
           <h1 className="text-3xl md:text-4xl font-bold text-gray-800 mb-3">
             Find the Best Dentists Near You
@@ -51,14 +51,14 @@ export default function Home() {
           </p>
         </div>
 
-        {/* 🔍 FILTERS */}
+        {/*  FILTERS */}
         <Filters
           filters={filters}
           setFilters={setFilters}
           dentists={dentists}
         />
 
-        {/* 📊 CONTENT */}
+        {/*  CONTENT */}
         {loading ? (
           <Loader />
         ) : filteredDentists.length === 0 ? (

@@ -41,7 +41,6 @@ export default function AdminPanel() {
     return "bg-yellow-100 text-yellow-700";
   };
 
-  // ✅ Correct logout
   const handleLogout = () => {
     localStorage.removeItem("adminLoggedIn");
     navigate("/admin-login");
@@ -49,7 +48,6 @@ export default function AdminPanel() {
 
   return (
     <div className="min-h-screen bg-gray-50 py-10 relative">
-      {/* ✅ TOP RIGHT LOGOUT */}
       <button
         onClick={handleLogout}
         className="absolute top-6 right-6 bg-red-500 hover:bg-red-600 text-white px-5 py-2 rounded-xl shadow"

@@ -3,7 +3,16 @@ import Dentist from "../models/Dentist.js";
 // @desc Get all dentists (Public)
 export const getDentists = async (req, res) => {
   try {
-    const dentists = await Dentist.find();
+    const { name, location, qualification, minExp } = req.query;
+    const filter = {};
+
+    if (name) filter.name = { $regex: name, $options: "i" }; // case-insensitive search
+    if (location) filter.location = location;
+    if (qualification) filter.qualification = qualification;
+    if (minExp) filter.experience = { $gte: Number(minExp) };
+
+    const dentists = await Dentist.find(filter);
+
     res.status(200).json({
       success: true,
       message: "Dentists fetched successfully",

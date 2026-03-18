@@ -3,8 +3,9 @@ import {
   createAppointment,
   getAppointments,
   deleteAppointment,
+  updateAppointmentStatus,
 } from "../controllers/appointment.controller.js";
-import { protect, admin } from "../middleware/auth.middleware.js";
+//import { protect, admin } from "../middleware/auth.middleware.js";
 
 const router = express.Router();
 
@@ -12,7 +13,7 @@ const router = express.Router();
 router.post("/", createAppointment);
 
 //  Admin routes
-router.get("/", protect, admin, getAppointments);
-router.delete("/:id", protect, admin, deleteAppointment);
-
+router.get("/", getAppointments);
+router.delete("/:id", deleteAppointment);
+router.put("/:id", updateAppointmentStatus);
 export default router;

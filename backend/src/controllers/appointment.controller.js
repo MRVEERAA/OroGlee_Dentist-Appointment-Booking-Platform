@@ -4,9 +4,11 @@ import Dentist from "../models/Dentist.js";
 // @desc Create a new appointment (User)
 export const createAppointment = async (req, res) => {
   try {
-    const { patientName, age, gender, appointmentDate, dentistId } = req.body;
+    console.log("Incoming Body:", req.body); // ✅ DEBUG
 
-    // Validate required fields
+    let { patientName, age, gender, appointmentDate, dentistId } = req.body;
+
+    // ✅ 1. VALIDATION
     if (!patientName || !age || !gender || !appointmentDate || !dentistId) {
       return res.status(400).json({
         success: false,
@@ -14,8 +16,19 @@ export const createAppointment = async (req, res) => {
       });
     }
 
-    // Check if dentist exists
+    // ✅ 2. CONVERT DATE (VERY IMPORTANT FIX)
+    const parsedDate = new Date(appointmentDate);
+
+    if (isNaN(parsedDate.getTime())) {
+      return res.status(400).json({
+        success: false,
+        message: "Invalid appointment date",
+      });
+    }
+
+    // ✅ 3. CHECK DENTIST EXISTS
     const dentist = await Dentist.findById(dentistId);
+
     if (!dentist) {
       return res.status(404).json({
         success: false,
@@ -23,12 +36,14 @@ export const createAppointment = async (req, res) => {
       });
     }
 
+    // ✅ 4. CREATE APPOINTMENT
     const appointment = await Appointment.create({
       patientName,
       age,
       gender,
-      appointmentDate,
+      appointmentDate: parsedDate,
       dentistId,
+      status: "Pending", // ✅ EXPLICIT FIX
     });
 
     res.status(201).json({
@@ -37,6 +52,8 @@ export const createAppointment = async (req, res) => {
       data: appointment,
     });
   } catch (error) {
+    console.error("SERVER ERROR:", error); // ✅ MUST ADD
+
     res.status(500).json({
       success: false,
       message: "Failed to book appointment",
@@ -87,5 +104,27 @@ export const deleteAppointment = async (req, res) => {
       message: "Failed to delete appointment",
       error: error.message,
     });
+  }
+};
+
+export const updateAppointmentStatus = async (req, res) => {
+  try {
+    const { status } = req.body;
+
+    const appointment = await Appointment.findById(req.params.id);
+    if (!appointment) {
+      return res.status(404).json({ success: false, message: "Not found" });
+    }
+
+    appointment.status = status;
+    await appointment.save();
+
+    res.status(200).json({
+      success: true,
+      message: "Status updated",
+      data: appointment,
+    });
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
   }
 };

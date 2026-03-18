@@ -4,7 +4,6 @@ import api from "./axiosInstance";
 export const getAllDentists = async () => {
   try {
     const res = await api.get("/dentists");
-    // Depending on backend: if wrapped in {data: [...]}
     return Array.isArray(res.data) ? res.data : res.data.data || [];
   } catch (error) {
     console.error("Error fetching dentists:", error);
