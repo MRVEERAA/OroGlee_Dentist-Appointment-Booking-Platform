@@ -16,7 +16,10 @@ const app = express();
 app.use(express.json());
 app.use(
   cors({
-    origin: ["https://oroglee-dentist-appointment.netlify.app"],
+    origin: [
+      "https://oroglee-dentist-appointment.netlify.app",
+      "http://localhost:5173",
+    ],
   }),
 );
 

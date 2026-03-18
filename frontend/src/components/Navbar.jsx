@@ -1,5 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
 import { Home, Shield } from "lucide-react";
+import logo from "../assets/images/dental-checkup.png";
 
 export default function Navbar() {
   const location = useLocation();
@@ -20,7 +21,8 @@ export default function Navbar() {
         to="/"
         className="text-2xl font-bold text-blue-600 tracking-wide flex items-center gap-2"
       >
-        🦷 OroGlee
+        <img src={logo} alt="OroGlee Logo" className="w-8 h-8" />
+        OroGlee
       </Link>
 
       {/* NAV LINKS */}
