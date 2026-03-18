@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import api from "../api/axiosInstance";
 
 const statusOptions = ["Pending", "Confirmed", "Cancelled"];
 
@@ -10,7 +11,7 @@ export default function AdminPanel() {
 
   const fetchAppointments = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/appointments");
+      const res = await api.get("/appointments");
       setAppointments(res.data?.data || []);
     } catch (error) {
       console.error("Error fetching appointments:", error.message);
@@ -23,7 +24,7 @@ export default function AdminPanel() {
 
   const handleStatusChange = async (id, status) => {
     try {
-      await axios.put(`http://localhost:5000/api/appointments/${id}`, {
+      await api.put(`/appointments/${id}`, {
         status,
       });
 
